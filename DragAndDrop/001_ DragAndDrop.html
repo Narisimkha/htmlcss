@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Drag & Drop</title>
+	<style>
+		#source {
+			background-color: yellow;
+			width: 100px;
+			height: 100px;
+			cursor: move;
+			color: block; 
+		}
+
+		#target {
+			background-color: blue;
+			width: 150px;
+			height: 150px;
+			padding: 5px;
+			margin-bottom: 5px;
+			color: white;
+		}
+	</style>
+
+	<script>
+		// dragstart - вызывается в самом начале переноса перетаски ваемого элемента.
+		//dragend - вызываеться в конце события перетаскивания - как успешногоб так и отмененногою
+		//dragenter - происходит в момент когда перетаскиваемый объект попадает в область целевого элемента.
+		// drogleave - происходит когда перетаскиваемый элемент покидает область целевого элемента.
+		// dragover - происходит когда перетаскиваемый элемент находится над целевым элементом.
+		// drop - вызывается, когда событие перетаскивания завершается отпусканием элемента над целевым элементом.
+
+		window.onload = function () {
+
+			var source = document.getElementById("source");
+
+			// начало операции drog
+			source.addEventListener('dragstart', function (evt) {
+				this.style.border = "3px dotted #000"; // меняем стиль в начале операции drog & drop
+
+				// Свойство effectAllowed управляет визуальным эффектом (чаще всего это вид указателя мыши), который браузер создает в ответ
+				// на тип происходящего события перетаскивания (перемещение, копирование и т. п.).
+				// http://msdn.microsoft.com/en-us/library/ie/ms533743%28v=vs.85%29.aspx
+				evt.dataTransfer.effectAllowed = "move";
+				// Метод setData(...) сообщает механизу перетаскивания в браузере, какие данные из перетаскиваемого объекта должен должен <<поймать>>
+				// целевой элемент, также называемой зоной приема. Здесь мы указываем, что передоваемые данные это id элемента
+				evt.dataTransfer.setData("Text", this.id);
+				}, false);
+
+			// конец операции drog
+			source.addEventListener("dragend", function (evt) {
+				this.style.border = ""; // удаляем стили добавленные в начале операции drog & drop
+			}, false);
+
+			var target = document.getElementById("target");
+
+			// перетаскиваемый объект попадает в область целевого элемента
+		}
+		
+	</script>
+</head>
+<body>
+	
+</body>
+</html>
